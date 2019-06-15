@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body class="container-fluid">
+    <div class="text-center float-center">
+        <div class="row mb-3 mt-3">
+            <p class="d-inline mt-2 mr-2 ml-4">Your Gold:</p>
+            <p class="border rounded border-dark d-inline p-2">{{request.session.gold}}</p>
+            <p class="d-inline mt-2 mr-2 ml-4">Gold Needed:</p>
+            <p class="border rounded border-dark d-inline p-2">{{request.session.gold_goal}}</p>
+            <p class="d-inline mt-2 mr-2 ml-4">Days Remaining:</p>
+            {% if request.session.turnsremaining < 5 %}
+                <p class="text-danger border rounded border-dark d-inline p-2">{{request.session.turnsremaining}}</p>
+                {%else%}
+                <p class="border rounded border-dark d-inline p-2">{{request.session.turnsremaining}}</p>            
+            {% endif %}
+            <a  href="/" class="btn btn-danger float-right mb-3 mr-3 col-1 ml-auto">Quit Game</a>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col border border-dark rounded mr-3 ml-3 p-3">
+                <h3>Farm</h3>
+                <p>(earns 10-20 gold)</p>
+                <a href="/farm" class="btn btn-outline-success mt-4 mb-5">Find Gold!</a>
+            </div>
+            <div class="col border border-dark rounded mr-3 ml-3 p-3">
+                <h3>House</h3>
+                <p>(earns 2-5 gold)</p>
+                <a href="/house" class="btn btn-outline-primary mt-4 mb-5">Find Gold!</a>
+            </div>
+            <div class="col border border-dark rounded mr-3 ml-3 p-3 ">
+                <h3>Cave</h3>
+                <p>(earns 5-10 gold)</p>
+                <a href="/cave" class="btn btn-outline-dark mt-4 mb-5">Find Gold!</a>
+            </div>
+            <div class="col border border-dark rounded mr-3 ml-3 p-3">
+                <h3>Casino</h3>
+                <p>(earns/takes 0-50 gold)</p>
+                <a href="/casino" class="btn btn-outline-warning mt-4 mb-5">Find Gold!</a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <p class="p-0 m-0">Activities</p>
+        <div class="container-fluid border border-dark rounded overflow-auto" style="height:300px">
+            <p class="ml-2 scrollspy overflow-auto">
+                {% for action in request.session.activities %}
+                    {% if action.0 == 'pos' %}
+                        <p style="color:green">:: {{action.1}} ::</p>
+                    {% elif action.0 == 'neg' %}
+                        <p style="color:red">:: {{action.1}} ::</p>
+                    {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+</body>
+</html>

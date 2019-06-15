@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        input{
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function Expand(obj){
+         if (!obj.savesize) obj.savesize=obj.size;
+         obj.size=Math.max(obj.savesize,obj.value.length);
+        }
+     </script>
+</head>
+<body class="container-fluid">
+    <div class="text-center float-center">
+        <div class="jumbotron m-5">
+            <form action="/new_game" method="post">
+            {% csrf_token %}
+            <div class="h1 mb-4">Ninja Gold!</div>
+
+            <div class="h4">You come home from years abroad to help your family on their small farm, only to find a man in a fancy suit smoking a cigar sitting the the living room. He is explaining to your parents that they are behind on the mortgage and if they do not pay the full remainder of their loan: <input type="text" name="gold_owed" id="gold_owed" value="{{request.session.gold_goal}}" size="1" onkeyup="Expand(this);" > gold within the next <input type="text" name="time_left" id="time_left" value="{{request.session.maxturns}}" size="1" onkeyup="Expand(this);"> days or they will reposess the farm. Your parents can barely make ends meet on their own as it is and cannot come up with that kind of money.</div> <div class="h4 mt-4"> It is up to you to...</div>
+
+            <input type="submit" value="Save the Farm!" class="btn btn-outline-primary brn-lg mt-4">
+        </form>
+    </div>
+</body>
+</html>
